@@ -6,9 +6,8 @@ load_dotenv()
 # Токен бота @tokazakhstan_bot (Пограничник)
 BOT_TOKEN = os.getenv("BOT_TOKEN", "6386091051:AAEQDzPLG9xq_d59UiI1-umjhJ9CT7cBthA")
 
-# Числовой Telegram ID Олеси (для получения запросов по рекламе и ответов через бота)
-# Узнать свой ID можно в боте @userinfobot или отправив /id нашему боту
-ADMIN_ID = int(os.getenv("ADMIN_ID", "0"))
+# Числовой Telegram ID Олеси (по умолчанию прошит ваш ID 211166360)
+ADMIN_ID = int(os.getenv("ADMIN_ID", "211166360"))
 
 # Ссылки из главного меню
 REVIEWS_URL = "https://t.me/tokazakhstan_2022/3317"
@@ -18,6 +17,9 @@ COMPANY_URL = "https://reaction64.ru/relocation"
 # Ссылки для раздела Консультации
 LAWYER_CONTACT_URL = "https://t.me/lesja64"
 CONSULTATION_MORE_URL = "https://reaction64.ru/relocation_kz"
+
+# Ссылка для раздела Миграционные услуги
+MIGRATION_CONTACT_URL = "https://t.me/kz_konsalting"
 
 # Ссылки для раздела Гайд по переезду
 GUIDE_MORE_URL = "https://reaction64.ru/relocation_kz_guide"

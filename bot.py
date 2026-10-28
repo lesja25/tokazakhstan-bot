@@ -38,9 +38,10 @@ class AdRequestState(StatesGroup):
 # ===================== КЛАВИАТУРЫ =====================
 
 def get_main_menu_keyboard() -> InlineKeyboardMarkup:
-    """Главное меню бота @tokazakhstan_bot («Пограничник»)"""
+    """Главное меню бота @tokazakhstan_bot («Пограничник» РК)"""
     keyboard = [
-        [InlineKeyboardButton(text="🗓 Запись на консультацию", callback_data="menu_consultation")],
+        [InlineKeyboardButton(text="🗓 Запись на юридическую консультацию", callback_data="menu_consultation")],
+        [InlineKeyboardButton(text="🏢 Миграционные услуги: РВП, ВНЖ, ТОО и др.", callback_data="menu_migration_services")],
         [InlineKeyboardButton(text="📖 Гайд по переезду в Казахстан", callback_data="menu_guide")],
         [InlineKeyboardButton(text="⭐ Отзывы", url=config.REVIEWS_URL)],
         [
@@ -57,6 +58,15 @@ def get_consultation_keyboard() -> InlineKeyboardMarkup:
     keyboard = [
         [InlineKeyboardButton(text="💬 Написать юристу", url=config.LAWYER_CONTACT_URL)],
         [InlineKeyboardButton(text="ℹ️ Подробнее о комплексной консультации", url=config.CONSULTATION_MORE_URL)],
+        [InlineKeyboardButton(text="⬅️ Главное меню", callback_data="back_to_main")],
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=keyboard)
+
+
+def get_migration_services_keyboard() -> InlineKeyboardMarkup:
+    """Клавиатура раздела Миграционные услуги"""
+    keyboard = [
+        [InlineKeyboardButton(text="💬 Запросить услугу", url=config.MIGRATION_CONTACT_URL)],
         [InlineKeyboardButton(text="⬅️ Главное меню", callback_data="back_to_main")],
     ]
     return InlineKeyboardMarkup(inline_keyboard=keyboard)
@@ -96,6 +106,7 @@ WELCOME_TEXT = (
     "и автор экспертного канала о релокации <b>«Едем в Казахстан»</b>.\n\n"
     "С помощью бота «Пограничник» вы сможете:\n"
     "• <b>Записаться на юридическую консультацию</b>;\n"
+    "• <b>Заказать миграционные услуги</b> (РВП, ВНЖ, ТОО, счета);\n"
     "• <b>Приобрести Гайд по переезду в Казахстан</b>;\n"
     "• <b>Обратиться по поводу размещения рекламы</b> в канале «Едем в Казахстан».\n\n"
     "Выберите нужный раздел в меню ниже 👇"
@@ -105,20 +116,20 @@ CONSULTATION_TEXT = (
     "<b>⚖️ Юридическая консультация Олеси Аблёзговой</b>\n\n"
     "Консультации проводит кандидат юридических наук, специалист по релокации и международному частному праву.\n\n"
     "<b>Стоимость юридической консультации:</b>\n\n"
-    "✅ <b>для физических лиц по гражданским делам по российскому праву</b> — от 5 000 рублей;\n\n"
-    "✅ <b>для физических лиц по налоговым, банковским вопросам; воинскому учёту; легализации в РК (оформление РВП, ВНЖ)</b> — от 7 000 рублей;\n\n"
-    "✅ <b>комплексная консультация по релокации</b> (стратегия переезда, налоги, имущество, открытие бизнеса, легализация) — от 10 000 рублей;\n\n"
-    "✅ <b>консультации по коммерческим вопросам, иностранному праву, для юридических лиц</b> — от 15 000 рублей.\n\n"
+    "✔️ <b>для физических лиц по гражданским делам по российскому праву</b> — от 5 000 рублей;\n\n"
+    "✔️ <b>для физических лиц по налоговым, банковским вопросам; воинскому учёту; легализации в РК (оформление РВП, ВНЖ)</b> — от 7 000 рублей;\n\n"
+    "✔️ <b>комплексная консультация по релокации</b> (стратегия переезда, налоги, имущество, открытие бизнеса, легализация) — от 10 000 рублей;\n\n"
+    "✔️ <b>консультации по коммерческим вопросам, иностранному праву, для юридических лиц</b> — от 15 000 рублей.\n\n"
     "━━━━━━━━━━━━━━━━━━━━━\n"
     "<b>Порядок оказания услуги:</b>\n"
-    "✅ согласование времени;\n"
-    "✅ оплата консультации;\n"
-    "✅ консультация в режиме телефонного разговора или видеосвязи (по вашему выбору).\n\n"
+    "✔️ согласование времени;\n"
+    "✔️ оплата консультации;\n"
+    "✔️ консультация в режиме телефонного разговора или видеосвязи (по вашему выбору).\n\n"
     "<b>Также возможна экспресс-консультация:</b>\n"
-    "✅ вопросы голосовым сообщением (до 10 минут) или текстом;\n"
-    "✅ оплата услуги;\n"
-    "✅ ответ голосовым сообщением (до 15 минут) в течение 1–3 часов в рабочие дни.\n"
-    "<i>Стоимость экспресс-консультации: 3 000 рублей.</i>\n\n"
+    "✔️ вопросы голосовым сообщением (до 10 минут) или текстом;\n"
+    "✔️ оплата услуги;\n"
+    "✔️ ответ голосовым сообщением (до 15 минут) в течение 1–3 часов в рабочие дни.\n"
+    "Стоимость экспресс-консультации: 3 000 рублей.\n\n"
     "━━━━━━━━━━━━━━━━━━━━━\n"
     "Просьба уточнить ваш вопрос перед выбором. Для некоторых ситуаций возможна только индивидуальная консультация (налоговые вопросы, семейные споры и др).\n\n"
     "Перед консультацией по релокации, а также по налоговым и банковским вопросам, необходим примерный список ваших вопросов и краткое описание ситуации.\n\n"
@@ -126,19 +137,30 @@ CONSULTATION_TEXT = (
     "Для записи на консультацию или уточнения стоимости направьте краткое описание вашей ситуации 👇"
 )
 
+MIGRATION_SERVICES_TEXT = (
+    "<b>МИГРАЦИОННЫЕ УСЛУГИ:</b>\n\n"
+    "✔️ <b>РВП</b> — сопровождение получения разрешения на временное проживание. "
+    "Срок действия — 1 год, с возможностью продления.\n\n"
+    "✔️ <b>Сопровождение процедуры получения ВНЖ</b>;\n\n"
+    "✔️ <b>Сопровождение получения уведомления о прибытии</b>, регистрации по месту пребывания;\n\n"
+    "✔️ <b>Сопровождение открытия ТОО</b>;\n\n"
+    "✔️ <b>Сопровождение открытия банковских карт СНГ</b>.\n\n"
+    "Для запроса услуги или консультации нажмите кнопку ниже 👇"
+)
+
 GUIDE_TEXT = (
     "<b>📖 ГАЙД ПО ПЕРЕЕЗДУ В КАЗАХСТАН:</b>\n\n"
-    "✅ <b>пошаговый ЮРИДИЧЕСКИЙ путеводитель</b>;\n"
-    "✅ <b>30+ страниц</b> исключительно важной, актуальной и необходимой информации, которая позволит вам спокойно переехать в Казахстан;\n"
-    "✅ <b>четкий план</b>: с чего начинать дома, куда бежать и что делать по приезду;\n"
-    "✅ <b>разобраны все необходимые для обустройства нюансы</b>: документы, апостили, доверенности, деньги, животные, авто, выезд, ИИН, ЦОНы, ЭЦП, SIM-карты, телефоны, банки, жилье, работа, регистрация, РВП, ВНЖ.\n\n"
+    "✔️ <b>пошаговый ЮРИДИЧЕСКИЙ путеводитель</b>;\n"
+    "✔️ <b>30+ страниц</b> исключительно важной, актуальной и необходимой информации, которая позволит вам спокойно переехать в Казахстан;\n"
+    "✔️ <b>четкий план</b>: с чего начинать дома, куда бежать и что делать по приезду;\n"
+    "✔️ <b>разобраны все необходимые для обустройства нюансы</b>: документы, апостили, доверенности, деньги, животные, авто, выезд, ИИН, ЦОНы, ЭЦП, SIM-карты, телефоны, банки, жилье, работа, регистрация, РВП, ВНЖ.\n\n"
     "⚠️ <b>Ограничения использования:</b> гайд создан для граждан России по законодательству России и Казахстана.\n"
     "<i>Релокацию из других стран обсуждаем в рамках индивидуальной консультации.</i>\n\n"
     "━━━━━━━━━━━━━━━━━━━━━\n"
     "<b>Как это работает:</b>\n"
-    "✅ оплата любой картой (через официальное приложение Telegram);\n"
-    "✅ получение доступа к pdf-файлу;\n"
-    "✅ внимательное изучение;\n"
+    "✔️ оплата любой картой (через официальное приложение Telegram);\n"
+    "✔️ получение доступа к pdf-файлу;\n"
+    "✔️ внимательное изучение;\n"
     "✔️ переезд в Казахстан."
 )
 
@@ -164,10 +186,9 @@ async def cmd_start(message: Message, state: FSMContext):
 
 @dp.message(Command("id", "myid"))
 async def cmd_get_id(message: Message):
-    """Помогает узнать свой Telegram ID для настройки ADMIN_ID"""
+    """Помогает узнать свой Telegram ID"""
     await message.answer(
-        f"Ваш числовой Telegram ID: <code>{message.from_user.id}</code>\n\n"
-        "Укажите его в настройках Railway в переменной <b>ADMIN_ID</b>, чтобы бот пересылал вам запросы по рекламе!"
+        f"Ваш числовой Telegram ID: <code>{message.from_user.id}</code>"
     )
 
 
@@ -190,6 +211,14 @@ async def show_consultation(callback: CallbackQuery):
     await callback.answer()
 
 
+# ===================== РАЗДЕЛ: МИГРАЦИОННЫЕ УСЛУГИ =====================
+
+@dp.callback_query(F.data == "menu_migration_services")
+async def show_migration_services(callback: CallbackQuery):
+    await callback.message.edit_text(MIGRATION_SERVICES_TEXT, reply_markup=get_migration_services_keyboard())
+    await callback.answer()
+
+
 # ===================== РАЗДЕЛ: ГАЙД ПО ПЕРЕЕЗДУ =====================
 
 @dp.callback_query(F.data == "menu_guide")
@@ -198,11 +227,11 @@ async def show_guide(callback: CallbackQuery):
     await callback.answer()
 
 
-# ===================== РАЗДЕЛ: РЕКЛАМА (УСЛОВИЯ И ВВОД) =====================
+# ===================== РАЗДЕЛ: РЕКЛАМА (ИНФО) =====================
 
 @dp.callback_query(F.data == "menu_ad_info")
 async def show_ad_info(callback: CallbackQuery, state: FSMContext):
-    """Экран с условиями и фильтром для рекламодателей"""
+    """Экран с условиями рекламы"""
     await state.clear()
     await callback.message.edit_text(AD_INFO_TEXT, reply_markup=get_ad_info_keyboard())
     await callback.answer()
@@ -210,7 +239,7 @@ async def show_ad_info(callback: CallbackQuery, state: FSMContext):
 
 @dp.callback_query(F.data == "start_ad_input")
 async def start_ad_input(callback: CallbackQuery, state: FSMContext):
-    """Переход в режим ожидания текста поста"""
+    """Переход к вводу рекламного поста"""
     await state.set_state(AdRequestState.waiting_for_message)
     prompt_text = (
         "✍️ <b>Отправьте текст вашего рекламного поста</b>\n\n"
@@ -221,54 +250,11 @@ async def start_ad_input(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
 
 
-@dp.message(AdRequestState.waiting_for_message)
-async def process_user_ad_message(message: Message, state: FSMContext):
-    """Пользователь прислал рекламный пост -> пересылаем Олесе"""
-    await state.clear()
-
-    user_info = f"@{message.from_user.username}" if message.from_user.username else "без username"
-    user_name = message.from_user.full_name
-    user_id = message.from_user.id
-    content_text = message.text or message.caption or "<i>[Только медиафайл без текста]</i>"
-
-    # Ответ клиенту
-    await message.answer(
-        "✅ <b>Спасибо! Ваш рекламный пост передан Олесе на согласование.</b>\n\n"
-        "Она оценит возможность размещения и ответит вам прямо здесь, в этом чате бота.",
-        reply_markup=get_main_menu_keyboard()
-    )
-
-    # Уведомление Олесе (ADMIN_ID)
-    if config.ADMIN_ID:
-        admin_header = (
-            "📢 <b>НОВЫЙ ЗАПРОС ПО РЕКЛАМЕ!</b>\n\n"
-            f"👤 <b>От:</b> {user_name} ({user_info})\n"
-            f"🆔 <b>ID:</b> <code>{user_id}</code>\n\n"
-            f"<b>Предложенный пост:</b>\n{content_text}\n\n"
-            "────────────────────────\n"
-            "💡 <i>Чтобы ответить рекламодателю прямо через бота, просто нажмите «Ответить / Reply» на это сообщение!</i>\n"
-            f"#user_{user_id}"
-        )
-        try:
-            if message.photo:
-                await bot.send_photo(
-                    chat_id=config.ADMIN_ID,
-                    photo=message.photo[-1].file_id,
-                    caption=admin_header
-                )
-            else:
-                await bot.send_message(chat_id=config.ADMIN_ID, text=admin_header)
-        except Exception as e:
-            logger.error(f"Не удалось отправить уведомление админу: {e}")
-    else:
-        logger.warning("ADMIN_ID не настроен! Запрос по рекламе не может быть доставлен.")
-
-
 # ===================== ОТВЕТ ОЛЕСИ ЧЕРЕЗ РЕПЛАЙ =====================
 
 @dp.message(F.chat.id == config.ADMIN_ID, F.reply_to_message)
 async def process_admin_reply(message: Message):
-    """Олеся отвечает на сообщение бота реплаем -> пересылаем ответ клиенту"""
+    """Олеся отвечает на сообщение бота реплаем -> бот доставляет ответ клиенту"""
     reply_text = message.reply_to_message.text or message.reply_to_message.caption or ""
     match = re.search(r"#user_(\d+)", reply_text)
 
@@ -279,7 +265,7 @@ async def process_admin_reply(message: Message):
 
     try:
         user_reply_text = (
-            "💬 <b>Ответ по рекламе от Олеси:</b>\n\n"
+            "💬 <b>Ответ от Олеси («Едем в Казахстан»):</b>\n\n"
             f"{message.text or ''}\n\n"
             "────────────────────────\n"
             "<i>(Вы можете написать ответное сообщение прямо сюда)</i>"
@@ -290,13 +276,70 @@ async def process_admin_reply(message: Message):
                 photo=message.photo[-1].file_id,
                 caption=user_reply_text
             )
+        elif message.document:
+            await bot.send_document(
+                chat_id=target_user_id,
+                document=message.document.file_id,
+                caption=user_reply_text
+            )
         else:
             await bot.send_message(chat_id=target_user_id, text=user_reply_text)
 
-        await message.reply("✅ <b>Ответ успешно доставлен рекламодателю в бот!</b>")
+        await message.reply("✅ <b>Ответ успешно доставлен пользователю в чат бота!</b>")
     except Exception as e:
         logger.error(f"Ошибка при доставке ответа пользователю {target_user_id}: {e}")
         await message.reply(f"❌ Не удалось доставить сообщение (возможно, пользователь заблокировал бота). Ошибка: {e}")
+
+
+# ===================== ПЕРЕСЫЛКА ЛЮБЫХ СООБЩЕНИЙ ПОЛЬЗОВАТЕЛЕЙ =====================
+
+@dp.message(F.chat.id != config.ADMIN_ID)
+async def handle_any_user_message(message: Message, state: FSMContext):
+    """Пересылает ЛЮБОЕ сообщение пользователя Олесе, даже если он не нажимал кнопку рекламы"""
+    await state.clear()
+
+    user_info = f"@{message.from_user.username}" if message.from_user.username else "без username"
+    user_name = message.from_user.full_name
+    user_id = message.from_user.id
+    content_text = message.text or message.caption or "<i>[Вложение без текста]</i>"
+
+    # Ответ пользователю
+    await message.answer(
+        "✅ <b>Спасибо! Ваше сообщение принято и передано Олесе.</b>\n\n"
+        "Она ответит вам прямо в этом чате в ближайшее рабочее время.",
+        reply_markup=get_main_menu_keyboard()
+    )
+
+    # Уведомление Олесе
+    if config.ADMIN_ID:
+        admin_header = (
+            "📩 <b>НОВОЕ СООБЩЕНИЕ В БОТЕ @tokazakhstan_bot!</b>\n\n"
+            f"👤 <b>От:</b> {user_name} ({user_info})\n"
+            f"🆔 <b>ID:</b> <code>{user_id}</code>\n\n"
+            f"<b>Текст сообщения:</b>\n{content_text}\n\n"
+            "────────────────────────\n"
+            "💡 <i>Чтобы ответить человеку прямо в бот, просто нажмите «Ответить / Reply» на это сообщение!</i>\n"
+            f"#user_{user_id}"
+        )
+        try:
+            if message.photo:
+                await bot.send_photo(
+                    chat_id=config.ADMIN_ID,
+                    photo=message.photo[-1].file_id,
+                    caption=admin_header
+                )
+            elif message.document:
+                await bot.send_document(
+                    chat_id=config.ADMIN_ID,
+                    document=message.document.file_id,
+                    caption=admin_header
+                )
+            else:
+                await bot.send_message(chat_id=config.ADMIN_ID, text=admin_header)
+        except Exception as e:
+            logger.error(f"Не удалось отправить уведомление админу: {e}")
+    else:
+        logger.warning("ADMIN_ID не настроен! Сообщение не может быть доставлено.")
 
 
 # ===================== ЗАПУСК =====================
